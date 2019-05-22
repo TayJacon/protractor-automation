@@ -1,7 +1,8 @@
-var Locators = require('../Common/locators');
+//This code use only jquery selector
+const Locators = require('../Common/locators');
 
 describe('Calculator', function() {
-    var locator = new Locators;
+    const locator = new Locators;
 
     beforeEach(function(){
         browser.get('https://ng-calc.herokuapp.com/')
