@@ -83,24 +83,53 @@ When you find elements in Protractor all actions are asynchronous. Behind the sc
 For a list of Protractor-specific locators, see the http://www.protractortest.org/#/api?view=ProtractorBy.
 
 ## Report
+Name: jasmine-spec-reporter
+The jasmine-spec-reporter is available by npm:
+```npm i jasmine-spec-reporter -D```
+
+Configuration file:
+```
+onPrepare: function() {
+        var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
+        jasmine.getEnv().addReporter(new SpecReporter({
+            spec: {
+                displayStacktrace: true,
+                displayErrorMessages: true,
+                displayFailed: true,
+                displayDuration: true
+            },
+            summary: {
+                displayStacktrace: true,
+                displayErrorMessages: true,
+                displaySuccessful: true,
+                displayFailed: true,
+                displayDuration: true
+            },
+            colors: {
+                enabled: true
+            }
+        }))
+```
+
 Name: protractor-jasmine2-html-reporter
 
-The protractor-jasmine2-html-reporter is available via npm:
-```$ npm install protractor-jasmine2-html-reporter --save-dev```
+The protractor-jasmine2-html-reporter is available by npm:
+```npm i protractor-jasmine2-html-reporter -D```
 
 In your Protractor configuration file, register protractor-jasmine2-html-reporter in jasmine:
 var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 ```
 exports.config = {
-   // ...
-   onPrepare: function() {
-      jasmine.getEnv().addReporter(
-        new Jasmine2HtmlReporter({
-          savePath: 'target/screenshots'
-        })
-      );
-   }
-}
+onPrepare: function() {
+        var JasmineHtmlReporter = require('protractor-jasmine2-html-reporter');
+        jasmine.getEnv().addReporter(new JasmineHtmlReporter({
+            savePath: 'reports',
+            screenShotsFolder: './shots',
+            takeScreenShots: true,
+            cleanDestination: false,
+            fixedScreenShotName: true
+        }));
+    },
 ```
 
 More information can be found on: https://www.npmjs.com/package/protractor-jasmine2-html-reporter

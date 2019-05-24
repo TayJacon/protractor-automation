@@ -12,6 +12,35 @@ exports.config = {
     onPrepare: function() {
         browser.ignoreSynchronization = true;
         browser.manage().timeouts().implicitlyWait(5000);
+
+        var JasmineHtmlReporter = require('protractor-jasmine2-html-reporter');
+        jasmine.getEnv().addReporter(new JasmineHtmlReporter({
+            savePath: 'reports',
+            screenShotsFolder: './shots',
+            takeScreenShots: true,
+            cleanDestination: false,
+            fixedScreenShotName: true
+        }));
+
+        var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
+        jasmine.getEnv().addReporter(new SpecReporter({
+            spec: {
+                displayStacktrace: true,
+                displayErrorMessages: true,
+                displayFailed: true,
+                displayDuration: true
+            },
+            summary: {
+                displayStacktrace: true,
+                displayErrorMessages: true,
+                displaySuccessful: true,
+                displayFailed: true,
+                displayDuration: true
+            },
+            colors: {
+                enabled: true
+            }
+        }));
     },
     capabilities: {
         'browserName': 'chrome'
