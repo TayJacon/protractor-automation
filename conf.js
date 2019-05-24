@@ -8,7 +8,7 @@ exports.config = {
         calculator: 'specs/ng-calc_spec.js',
         mark7: 'specs/login_spec.js'
     },
-    // When using this is not possible use angular (ng-calc_spec.js)
+    baseUrl: 'https://mark7-sandbox.herokuapp.com',
     onPrepare: function() {
         browser.ignoreSynchronization = true;
         browser.manage().timeouts().implicitlyWait(5000);

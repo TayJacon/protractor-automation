@@ -1,47 +1,42 @@
 const Locators = require('../Common/locators');
+const Login = require('../PageObject/login');
 
 describe('Login', function() {
     const locator = new Locators;
+    const loginPage = new Login();
 
     beforeEach(function() {
-        browser.get('https://mark7-sandbox.herokuapp.com/login');
+        browser.get(loginPage.path);
     })
 
-    it('Invalid password', function(){
-        locator.loginField.sendKeys('me@papito.io');
-        locator.passwordField.sendKeys('123abc');
-        locator.loginButton.click();
+    it('When use a invalid password', function(){
+        loginPage.doLogin('me@papito.io', '123abc');
 
         expect(locator.alertLogin.getText()).toEqual('Senha inválida.');
     })
 
-    it('User not registered', function(){
-        locator.loginField.sendKeys('404@papito.io');
-        locator.passwordField.sendKeys('123abc');
-        locator.loginButton.click();
+    it('When user is not registered', function(){
+        loginPage.doLogin('404@papito.io', '123abc');
 
         expect(locator.alertLogin.getText()).toEqual('Usuário não cadastrado.');
     })
 
-    it('Email message validation', function(){
-        locator.passwordField.sendKeys('123abc');
-        locator.loginButton.click();
+    it('When password size is lowest than required', function(){
+        loginPage.doLogin('404@papito.io', '123');
+
+        expect(locator.alertLogin.getText()).toEqual('Senha deve ter no mínimo 6 caracteres.');
+    })
+
+    it('When don\'t fill the email', function(){
+        loginPage.doLogin('', '123abc');
 
         expect(locator.alertLogin.getText()).toEqual('Email incorreto ou ausente.');
     })
 
-    it('Pasword message validation', function(){
-        locator.loginField.sendKeys('me@papito.io');
-        locator.loginButton.click();
+    it('When don\'t fill the password', function(){
+        loginPage.doLogin('me@papito.io', '');
 
         expect(locator.alertLogin.getText()).toEqual('Senha ausente.');
     })
-
-    it('Password size message validation', function(){
-        locator.loginField.sendKeys('me@papito.io');
-        locator.passwordField.sendKeys('123');
-        locator.loginButton.click();
-
-        expect(locator.alertLogin.getText()).toEqual('Senha deve ter no mínimo 6 caracteres.');
-    })
+    //parei no 1:47 Segunda Live - 17 de Outubro de 2018
 })
