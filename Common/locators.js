@@ -13,6 +13,12 @@ class Locators {
     this.passwordField = element(by.css('input[name=password]'))
     this.loginButton = element(by.css('button[id*=btnLogin]')) //for dynamics elements: * = contains | ^ = start with | $ = end with
     this.alertLogin = element(by.css('.alert-login'))
+    this.inputName = element(by.css("input[name=title]"))
+    this.addButton = element(by.css('button[id*=submit]'))
+    this.alertWarn = element(by.css('.panel-c-warning'))
+    this.newTaskButton = element(by.css('#insert-button'))
+    this.alertInfo = element(by.css('.panel-c-info'))
+    this.alertError = element(by.css('.panel-c-danger'))
     }
 };
 module.exports = Locators;

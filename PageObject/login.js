@@ -1,10 +1,14 @@
 const Locators = require('../Common/locators');
 
-class Login {
+class LoginPage {
 
     constructor() {
         this.path = '/login';
         this.locator = new Locators();
+    }
+
+    go() {
+        browser.get(this.path);
     }
 
     doLogin(email, password) {
@@ -13,4 +17,4 @@ class Login {
         this.locator.loginButton.click();
     }
 }
-module.exports = Login;
+module.exports = LoginPage;

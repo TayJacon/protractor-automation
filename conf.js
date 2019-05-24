@@ -6,7 +6,8 @@ exports.config = {
     // specs: ['specs/*_spec.js'],
     suites: {
         calculator: 'specs/ng-calc_spec.js',
-        mark7: 'specs/login_spec.js'
+        mark7: 'specs/login_spec.js',
+        tasks: 'specs/tasks_spec.js',
     },
     baseUrl: 'https://mark7-sandbox.herokuapp.com',
     onPrepare: function() {
