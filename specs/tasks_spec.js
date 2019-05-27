@@ -32,7 +32,7 @@ describe('Tasks: ', () =>{
     it('Add a task @smoke', () => {
         // task.name = 'Study node' + Math.random();
         var newTask = {title: 'Study node', tags: ['node', 'js']};
-        tasksDB.deleteByName(newTask.title).then(res => console.log(res));
+        tasksDB.deleteByName(newTask.title);
         taskPage.addTask(newTask);
 
         expect(taskPage.getItem(newTask.title).getText()).toContain("Em andamento");

@@ -29,6 +29,7 @@
   "homepage": "https://github.com/TJNakashima/protractor-automation#readme",
   "devDependencies": {
     "jasmine": "^3.4.0",
+    "jasmine-allure-reporter": "^1.0.2",
     "jasmine-spec-reporter": "^4.2.1",
     "mongoose": "^5.5.11",
     "protractor": "^5.4.2",
