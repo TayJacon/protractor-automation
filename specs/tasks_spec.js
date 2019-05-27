@@ -2,43 +2,39 @@
 const Locators = require('../Common/locators');
 const LoginPage = require('../PageObject/login');
 const TaskPage = require('../PageObject/task');
+const tasksDB = require('../lib/taks-db.js');
 
-describe('Tasks', () =>{
+describe('Tasks: ', () =>{
 
     const loginPage = new LoginPage();
     const taskPage = new TaskPage();
     const locators = new Locators();
 
-    var newTask = {name: 'Study node'};
+    
+    beforeAll(() => {
+        loginPage.go();
+        loginPage.doLogin('tj@test.com', '123456789')
+        locators.newTaskButton.click();
+    })
 
-    describe('When I login', () => {
+    it('Adding task with short name', () => {
+        taskPage.addTask({title: 'Study'});
 
-        beforeAll(() => {
-            const serviceDB = require('../mongo');
-            serviceDB.deleteByName(newTask.name).then(res => console.log(res));
+        expect(locators.alertInfo.getText()).toEqual('10 caracteres é o mínimo permitido.');
+    })
 
-            loginPage.go();
-            loginPage.doLogin('tj@test.com', '123456789')
-            locators.newTaskButton.click();
-        })
+    it('Adding task without name', () => {
+        taskPage.addTask({ title: ''});
 
-        it('Tasks with short name', () => {
-            taskPage.addTask({name: 'Study'});
+        expect(locators.alertWarn.getText()).toEqual('Nome é obrigatório.');
+    })
 
-            expect(locators.alertInfo.getText()).toEqual('10 caracteres é o mínimo permitido.');
-        })
+    it('Add a task @smoke', () => {
+        // task.name = 'Study node' + Math.random();
+        var newTask = {title: 'Study node', tags: ['node', 'js']};
+        tasksDB.deleteByName(newTask.title).then(res => console.log(res));
+        taskPage.addTask(newTask);
 
-        it('Tasks without name', () => {
-            taskPage.addTask({ name: ''});
-
-            expect(locators.alertWarn.getText()).toEqual('Nome é obrigatório.');
-        })
-
-        it('Add a task', () => {
-            // task.name = 'Study node' + Math.random();
-            taskPage.addTask(newTask);
-
-            expect(taskPage.getItem(newTask.name).getText()).toContain("Em andamento");
-        })
+        expect(taskPage.getItem(newTask.title).getText()).toContain("Em andamento");
     })
 })

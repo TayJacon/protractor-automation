@@ -19,6 +19,7 @@ class Locators {
     this.newTaskButton = element(by.css('#insert-button'))
     this.alertInfo = element(by.css('.panel-c-info'))
     this.alertError = element(by.css('.panel-c-danger'))
+    this.inputTags = element(by.css("div[class*=tagsinput] input"));
     }
 };
 module.exports = Locators;
